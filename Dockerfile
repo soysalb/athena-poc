@@ -52,6 +52,7 @@ RUN apt-get -q update \
     locales \
     fonts-liberation \
     run-one \
+    python3-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -293,7 +294,8 @@ RUN pip install pandas_profiling trino scikit-optimize impyute --no-cache-dir &&
 	pip install diagrams --no-cache-dir && \
 	pip install fancyimpute --no-cache-dir && \
 	pip install fasttext --no-cache-dir && \
-#	pip install fbprophet --no-cache-dir && \
+        pip install pystan==2.19.1.1 --no-cache-dir && \
+	pip install fbprophet --no-cache-dir && \
 	pip install gensim --no-cache-dir && \
 	pip install glob2 --no-cache-dir && \
 	pip install imbalanced-learn --no-cache-dir && \
@@ -306,12 +308,14 @@ RUN pip install pandas_profiling trino scikit-optimize impyute --no-cache-dir &&
 	pip install kerasplotlib --no-cache-dir && \
 	pip install knnimpute --no-cache-dir && \
 	pip install lightgbm --no-cache-dir && \
-#	pip install megpack-python --no-cache-dir && \
+	pip install msgpack-python --no-cache-dir && \
 	pip install multidict --no-cache-dir && \
 	pip install multiprocess --no-cache-dir && \
 	pip install tensorflow-datasets --no-cache-dir && \
-	pip install snowballstemmer --no-cache-dir	fix-permissions "${CONDA_DIR}" && \
+	pip install snowballstemmer --no-cache-dir && \
+	fix-permissions "${CONDA_DIR}" && \
 	fix-permissions "/home/${NB_USER}"
+	
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
